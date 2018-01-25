@@ -38,8 +38,21 @@ abstract class UmengNotification
             //"thirdparty_id"  => "xx"
     ];
 
-    protected $DATA_KEYS = ['appkey', 'timestamp', 'type', 'device_tokens', 'alias', 'alias_type', 'file_id', 'filter', 'production_mode',
-                                    'feedback', 'description', 'thirdparty_id'];
+    protected $DATA_KEYS = [
+        'appkey',
+        'timestamp',
+        'type',
+        'device_tokens',
+        'alias',
+        'alias_type',
+        'file_id',
+        'filter',
+        'production_mode',
+        'feedback',
+        'description',
+        'thirdparty_id'
+    ];
+
     protected $POLICY_KEYS = ['start_time', 'expire_time', 'max_send_num'];
 
     public function __construct()
@@ -51,7 +64,13 @@ abstract class UmengNotification
         $this->appMasterSecret = $secret;
     }
 
-    //return TRUE if it's complete, otherwise throw UmengException with details
+    /**
+     * return TRUE if it's complete, otherwise throw UmengException with details
+     *
+     * @throws UmengException
+     *
+     * @return bool
+     */
     public function isComplete()
     {
         if (is_null($this->appMasterSecret)) {
@@ -62,6 +81,11 @@ abstract class UmengNotification
         return true;
     }
 
+    /**
+     * @param $arr
+     *
+     * @throws UmengException
+     */
     private function checkArrayValues($arr)
     {
         foreach ($arr as $key => $value) {
@@ -74,10 +98,22 @@ abstract class UmengNotification
         }
     }
 
-    // Set key/value for $data array, for the keys which can be set please see $DATA_KEYS, $PAYLOAD_KEYS, $BODY_KEYS, $POLICY_KEYS
+    /**
+     * Set key/value for $data array
+     * for the keys which can be set please see $DATA_KEYS, $PAYLOAD_KEYS, $BODY_KEYS, $POLICY_KEYS
+     *
+     * @param string $key
+     * @param string $value
+     */
     abstract public function setPredefinedKeyValue($key, $value);
 
-    //send the Umeng to umeng, return response data if SUCCESS , otherwise throw UmengException with details.
+    /**
+     * send the Umeng to umeng, return response data if SUCCESS , otherwise throw UmengException with details.
+     *
+     * @throws UmengException
+     *
+     * @return mixed
+     */
     public function send()
     {
         //check the fields to make sure that they are not NULL

@@ -1,15 +1,17 @@
 <?php
 
-require_once __DIR__ . '/' . 'Umeng/Android/AndroidBroadcast.php';
-require_once __DIR__ . '/' . 'Umeng/Android/AndroidFilecast.php';
-require_once __DIR__ . '/' . 'Umeng/Android/AndroidGroupcast.php';
-require_once __DIR__ . '/' . 'Umeng/Android/AndroidUnicast.php';
-require_once __DIR__ . '/' . 'Umeng/Android/AndroidCustomizedcast.php';
-require_once __DIR__ . '/' . 'Umeng/IOS/IOSBroadcast.php';
-require_once __DIR__ . '/' . 'Umeng/IOS/IOSFilecast.php';
-require_once __DIR__ . '/' . 'Umeng/IOS/IOSGroupcast.php';
-require_once __DIR__ . '/' . 'Umeng/IOS/IOSUnicast.php';
-require_once __DIR__ . '/' . 'Umeng/IOS/IOSCustomizedcast.php';
+use Minbaby\Umeng\Android\AndroidBroadcast;
+use Minbaby\Umeng\Android\AndroidCustomizedcast;
+use Minbaby\Umeng\Android\AndroidFilecast;
+use Minbaby\Umeng\Android\AndroidGroupcast;
+use Minbaby\Umeng\Android\AndroidUnicast;
+use Minbaby\Umeng\IOS\IOSBroadcast;
+use Minbaby\Umeng\IOS\IOSCustomizedcast;
+use Minbaby\Umeng\IOS\IOSFilecast;
+use Minbaby\Umeng\IOS\IOSGroupcast;
+use Minbaby\Umeng\IOS\IOSUnicast;
+
+require __DIR__ . '/../vendor/autoload.php';
 
 class Demo
 {
