@@ -29,8 +29,22 @@ abstract class AndroidNotification extends UmengNotification
     protected $PAYLOAD_KEYS = ['display_type'];
 
     // Keys can be set in the body level
-    protected $BODY_KEYS = ['ticker', 'title', 'text', 'builder_id', 'icon', 'largeIcon', 'img', 'play_vibrate', 'play_lights', 'play_sound', 'after_open', 'url',
-                                    'activity', 'custom'];
+    protected $BODY_KEYS = [
+        'ticker',
+        'title',
+        'text',
+        'builder_id',
+        'icon',
+        'largeIcon',
+        'img',
+        'play_vibrate',
+        'play_lights',
+        'play_sound',
+        'after_open',
+        'url',
+        'activity',
+        'custom'
+    ];
 
     public function __construct()
     {
@@ -44,7 +58,7 @@ abstract class AndroidNotification extends UmengNotification
     public function setPredefinedKeyValue($key, $value)
     {
         if (! is_string($key)) {
-            throw new UmengException('key should be a string!');
+            throwUmengException('key should be a string!');
         }
         if (in_array($key, $this->DATA_KEYS)) {
             $this->data[$key] = $value;
@@ -61,25 +75,34 @@ abstract class AndroidNotification extends UmengNotification
             }
         } elseif (in_array($key, $this->BODY_KEYS)) {
             $this->data['payload']['body'][$key] = $value;
-            if ('after_open' == $key && 'go_custom' == $value && ! array_key_exists('custom', $this->data['payload']['body'])) {
+            if ('after_open' == $key
+                && 'go_custom' == $value
+                && ! array_key_exists('custom', $this->data['payload']['body'])) {
                 $this->data['payload']['body']['custom'] = null;
             }
         } elseif (in_array($key, $this->POLICY_KEYS)) {
             $this->data['policy'][$key] = $value;
         } else {
             if ('payload' == $key || 'body' == $key || 'policy' == $key || 'extra' == $key) {
-                throw new UmengException("You don't need to set value for ${key} , just set values for the sub keys in it.");
+                $msg ="You don't need to set value for ${key} , just set values for the sub keys in it.";
+                throwUmengException($msg, UMENG_HTTP_BAD);
             }
 
-            throw new UmengException("Unknown key: ${key}");
+            throwUmengException("Unknown key: ${key}");
         }
     }
 
-    // Set extra key/value for Android Umeng
+    /**
+     * Set extra key/value for Android Umeng
+     *
+     * @param $key
+     * @param $value
+     * @throws UmengException
+     */
     public function setExtraField($key, $value)
     {
         if (! is_string($key)) {
-            throw new UmengException('key should be a string!');
+            throwUmengException('key should be a string!');
         }
         $this->data['payload']['extra'][$key] = $value;
     }

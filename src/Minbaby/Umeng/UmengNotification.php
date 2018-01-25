@@ -21,7 +21,8 @@ abstract class UmengNotification
     /*
      * $data is designed to construct the json string for POST request. Note:
      * 1)The key/value pairs in comments are optional.
-     * 2)The value for key 'payload' is set in the subclass(AndroidNotification or IOSNotification), as their payload structures are different.
+     * 2)The value for key 'payload' is set in the subclass(AndroidNotification or IOSNotification),
+     *      as their payload structures are different.
      */
     protected $data = [
             'appkey'           => null,
@@ -74,7 +75,7 @@ abstract class UmengNotification
     public function isComplete()
     {
         if (is_null($this->appMasterSecret)) {
-            throw new UmengException('Please set your app master secret for generating the signature!');
+            throwUmengException('Please set your app master secret for generating the signature!');
         }
         $this->checkArrayValues($this->data);
 
@@ -90,7 +91,7 @@ abstract class UmengNotification
     {
         foreach ($arr as $key => $value) {
             if (is_null($value)) {
-                throw new UmengException($key . ' is NULL!');
+                throwUmengException($key . ' is NULL!');
             }
             if (is_array($value)) {
                 $this->checkArrayValues($value);
@@ -135,13 +136,17 @@ abstract class UmengNotification
         $curlErrNo = curl_errno($ch);
         $curlErr = curl_error($ch);
         curl_close($ch);
+
         if ('0' == $httpCode) {
             // Time out
-            throw new UmengException('Curl error number:' . $curlErrNo . ' , Curl error details:' . $curlErr . "\r\n");
+            $msg = 'Curl error number:' . $curlErrNo . ' , Curl error details:' . $curlErr . "\r\n";
+            throwUmengException($msg, $curlErrNo, $curlErr);
         }
-        if ('200' != $httpCode) {
+
+        if (UMENG_HTTP_OK != $httpCode) {
             // We did send the notifition out and got a non-200 response
-            throw new UmengException('Http code:' . $httpCode .  ' details:' . $result . "\r\n");
+            $msg = 'Http code:' . $httpCode .  ' details:' . $result . "\r\n";
+            throwUmengException($msg, $httpCode, $result);
         }
 
         return $result;

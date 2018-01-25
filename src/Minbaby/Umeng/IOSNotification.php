@@ -31,7 +31,7 @@ abstract class IOSNotification extends UmengNotification
     public function setPredefinedKeyValue($key, $value)
     {
         if (! is_string($key)) {
-            throw new UmengException('key should be a string!');
+            throwUmengException('key should be a string!');
         }
         if (in_array($key, $this->DATA_KEYS)) {
             $this->data[$key] = $value;
@@ -41,10 +41,10 @@ abstract class IOSNotification extends UmengNotification
             $this->data['policy'][$key] = $value;
         } else {
             if ('payload' == $key || 'policy' == $key || 'aps' == $key) {
-                throw new UmengException("You don't need to set value for ${key} , just set values for the sub keys in it.");
+                throwUmengException("You don't need to set value for ${key} , just set values for the sub keys in it.");
             }
 
-            throw new UmengException("Unknown key: ${key}");
+            throwUmengException("Unknown key: ${key}");
         }
     }
 
@@ -59,7 +59,7 @@ abstract class IOSNotification extends UmengNotification
     public function setCustomizedField($key, $value)
     {
         if (! is_string($key)) {
-            throw new UmengException('key should be a string!');
+            throwUmengException('key should be a string!');
         }
         $this->data['payload'][$key] = $value;
     }

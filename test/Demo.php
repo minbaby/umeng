@@ -1,15 +1,15 @@
 <?php
 
-use Minbaby\Umeng\Android\AndroidBroadcast;
-use Minbaby\Umeng\Android\AndroidCustomizedcast;
-use Minbaby\Umeng\Android\AndroidFilecast;
-use Minbaby\Umeng\Android\AndroidGroupcast;
-use Minbaby\Umeng\Android\AndroidUnicast;
-use Minbaby\Umeng\IOS\IOSBroadcast;
-use Minbaby\Umeng\IOS\IOSCustomizedcast;
-use Minbaby\Umeng\IOS\IOSFilecast;
-use Minbaby\Umeng\IOS\IOSGroupcast;
 use Minbaby\Umeng\IOS\IOSUnicast;
+use Minbaby\Umeng\IOS\IOSFilecast;
+use Minbaby\Umeng\IOS\IOSBroadcast;
+use Minbaby\Umeng\IOS\IOSGroupcast;
+use Minbaby\Umeng\IOS\IOSCustomizedcast;
+use Minbaby\Umeng\Android\AndroidUnicast;
+use Minbaby\Umeng\Android\AndroidFilecast;
+use Minbaby\Umeng\Android\AndroidBroadcast;
+use Minbaby\Umeng\Android\AndroidGroupcast;
+use Minbaby\Umeng\Android\AndroidCustomizedcast;
 
 require __DIR__ . '/../vendor/autoload.php';
 
