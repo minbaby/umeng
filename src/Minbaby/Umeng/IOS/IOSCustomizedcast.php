@@ -12,9 +12,9 @@ class IOSCustomizedcast extends IOSNotification
         $this->data['type'] = 'customizedcast';
         $this->data['alias_type'] = null;
     }
-    
+
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isComplete()
     {
@@ -24,7 +24,13 @@ class IOSCustomizedcast extends IOSNotification
         }
     }
 
-    // Upload file with device_tokens or alias to Umeng
+    /**
+     * Upload file with device_tokens or alias to Umeng
+     *
+     * @param $content
+     *
+     * @throws \Minbaby\Umeng\Exception\UmengException
+     */
     public function uploadContents($content)
     {
         if (null == $this->data['appkey']) {
@@ -59,12 +65,12 @@ class IOSCustomizedcast extends IOSNotification
         if ('0' == $httpCode) { //time out
             throwUmengException('Curl error number:' . $curlErrNo . ' , Curl error details:' . $curlErr . "\r\n");
         }
-        if ('200' != $httpCode) { //we did send the notifition out and got a non-200 response
-            throwUmengException('http code:' . $httpCode . ' details:' . $result . "\r\n");
+        if (UMENG_HTTP_OK != $httpCode) { //we did send the notifition out and got a non-200 response
+            throwUmengException('http code:' . $httpCode . ' details:' . $result . "\r\n", $httpCode, $result);
         }
         $returnData = json_decode($result, true);
         if ('FAIL' == $returnData['ret']) {
-            throwUmengException('Failed to upload file, details:' . $result . "\r\n");
+            throwUmengException('Failed to upload file, details:' . $result . "\r\n", UMENG_HTTP_OK, $returnData);
         }
         $this->data['file_id'] = $returnData['data']['file_id'];
     }

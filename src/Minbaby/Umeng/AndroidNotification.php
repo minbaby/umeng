@@ -84,7 +84,7 @@ abstract class AndroidNotification extends UmengNotification
             $this->data['policy'][$key] = $value;
         } else {
             if ('payload' == $key || 'body' == $key || 'policy' == $key || 'extra' == $key) {
-                $msg ="You don't need to set value for ${key} , just set values for the sub keys in it.";
+                $msg = "You don't need to set value for ${key} , just set values for the sub keys in it.";
                 throwUmengException($msg, UMENG_HTTP_BAD);
             }
 
@@ -97,6 +97,7 @@ abstract class AndroidNotification extends UmengNotification
      *
      * @param $key
      * @param $value
+     *
      * @throws UmengException
      */
     public function setExtraField($key, $value)

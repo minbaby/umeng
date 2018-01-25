@@ -69,11 +69,11 @@ class Demo
             $unicast->setPredefinedKeyValue('production_mode', 'true');
             // Set extra fields
             $unicast->setExtraField('test', 'helloworld');
-            echo "Sending unicast Umeng, please wait...\r\n";
+//            echo "Sending unicast Umeng, please wait...\r\n";
             $unicast->send();
-            echo "Sent SUCCESS\r\n";
-        } catch (Exception $e) {
-            echo 'Caught exception: ' . $e->getMessage();
+//            echo "Sent SUCCESS\r\n";
+        } catch (\Minbaby\Umeng\Exception\UmengException $e) {
+            echo $e->getMessage();
         }
     }
 
@@ -340,16 +340,3 @@ class Demo
 // Set your appkey and master secret here
 $demo = new Demo('5a671c38f43e4832ff00024f', '5a671c38f43e4832ff00024f');
 $demo->sendAndroidUnicast();
-/* these methods are all available, just fill in some fields and do the test
- * $demo->sendAndroidBroadcast();
- * $demo->sendAndroidFilecast();
- * $demo->sendAndroidGroupcast();
- * $demo->sendAndroidCustomizedcast();
- * $demo->sendAndroidCustomizedcastFileId();
- *
- * $demo->sendIOSBroadcast();
- * $demo->sendIOSUnicast();
- * $demo->sendIOSFilecast();
- * $demo->sendIOSGroupcast();
- * $demo->sendIOSCustomizedcast();
- */

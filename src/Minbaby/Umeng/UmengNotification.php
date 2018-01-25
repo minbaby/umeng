@@ -145,8 +145,14 @@ abstract class UmengNotification
 
         if (UMENG_HTTP_OK != $httpCode) {
             // We did send the notifition out and got a non-200 response
-            $msg = 'Http code:' . $httpCode .  ' details:' . $result . "\r\n";
-            throwUmengException($msg, $httpCode, $result);
+//            $msg = 'Http code:' . $httpCode .  ' details:' . $result . "\r\n";
+//            throwUmengException($msg, $httpCode, $result);
+
+            $returnData = json_decode($result, true);
+            if ('FAIL' == $returnData['ret']) {
+                $code = $returnData['data']['error_code'];
+                throwUmengException(getErrorMsgByErrorCode($code), $code, $returnData);
+            }
         }
 
         return $result;
